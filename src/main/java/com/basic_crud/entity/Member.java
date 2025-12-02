@@ -14,7 +14,7 @@ public class Member {
     private Long id;
 
     @Column(name = "name", length = 20, nullable = false)
-    private Long name;
+    private String name;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -28,6 +28,10 @@ public class Member {
     protected Member() {
     }
 
+    public Member(String name) {
+        this.name = name;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -39,5 +43,11 @@ public class Member {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public Long getId() {
+        return id;
+    }
 }
