@@ -1,4 +1,4 @@
-package com.example.basic_crud;
+package com.basic_crud;
 
 import jakarta.persistence.*;
 
