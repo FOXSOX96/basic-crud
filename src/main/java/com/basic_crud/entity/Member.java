@@ -1,4 +1,4 @@
-package com.basic_crud;
+package com.basic_crud.entity;
 
 import jakarta.persistence.*;
 
