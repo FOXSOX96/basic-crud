@@ -1,0 +1,29 @@
+package com.basic_crud.dto;
+
+public class ApiResponse {
+
+    //속성
+    private final String message;
+    private final Integer status;
+    private final MemberCreateResponseDto data;
+
+    //생성자
+    public ApiResponse(String message, Integer status, MemberCreateResponseDto data) {
+        this.message = message;
+        this.status = status;
+        this.data = data;
+    }
+
+    //기능
+    public String getMessage() {
+        return message;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public MemberCreateResponseDto getData() {
+        return data;
+    }
+}
