@@ -28,11 +28,11 @@ public class MemberController {
      */
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createMemberApi(@RequestBody MemberCreateRequestDto requestDto) {
-        T memberCreateResponseDto = memberService.createMember(requestDto);
+    public ResponseEntity<ApiResponse<MemberCreateResponseDto>> createMemberApi(@RequestBody MemberCreateRequestDto requestDto) {
+        MemberCreateResponseDto memberCreateResponseDto = memberService.createMember(requestDto);
         //응답 형식 적용
-        ApiResponse response = new ApiResponse("created", 201, memberCreateResponseDto);
-        ResponseEntity<ApiResponse> response2 = new ResponseEntity<>(response, HttpStatus.CREATED);
+        ApiResponse<MemberCreateResponseDto> apiResponse = new ApiResponse("created", 201, memberCreateResponseDto);
+        ResponseEntity<ApiResponse<MemberCreateResponseDto>> response2 = new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         return response2;
     }
 
@@ -42,11 +42,13 @@ public class MemberController {
      * @param memberId
      */
     @GetMapping("/{memberId}")
-    public ApiResponse getMemberDetailApi(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<ApiResponse<MemberGetOneResponseDto>> getMemberDetailApi(@PathVariable("memberId") Long memberId) {
         log.info("memberId: {}", memberId);
         MemberGetOneResponseDto responseDto = memberService.getMemberDetail(memberId);
-        ApiResponse response = new ApiResponse("success",200, responseDto);
-        return response;
+        //응답 형식 적용
+        ApiResponse<MemberGetOneResponseDto> apiResponse = new ApiResponse("success",200, responseDto);
+        ResponseEntity<ApiResponse<MemberGetOneResponseDto>> response2 = new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return response2;
     }
 
 
