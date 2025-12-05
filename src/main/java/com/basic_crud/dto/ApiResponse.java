@@ -1,14 +1,14 @@
 package com.basic_crud.dto;
 
-public class ApiResponse {
+public class ApiResponse<T> {
 
     //속성
     private final String message;
     private final Integer status;
-    private final MemberCreateResponseDto data;
+    private final T data;
 
     //생성자
-    public ApiResponse(String message, Integer status, MemberCreateResponseDto data) {
+    public ApiResponse(String message, Integer status, T data) {
         this.message = message;
         this.status = status;
         this.data = data;
@@ -23,7 +23,7 @@ public class ApiResponse {
         return status;
     }
 
-    public MemberCreateResponseDto getData() {
+    public T getData() {
         return data;
     }
 }

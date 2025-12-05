@@ -1,12 +1,12 @@
 package com.basic_crud.dto;
 
-public class MemberCreateResponseDto {
+public class T {
 
     //속성
     private final Long id;
 
     //생성자
-    public MemberCreateResponseDto(Long foundId) {
+    public T(Long foundId) {
         this.id = foundId;
     }
 

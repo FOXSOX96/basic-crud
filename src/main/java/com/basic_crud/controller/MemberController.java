@@ -29,7 +29,7 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<ApiResponse> createMemberApi(@RequestBody MemberCreateRequestDto requestDto) {
-        MemberCreateResponseDto memberCreateResponseDto = memberService.createMember(requestDto);
+        T memberCreateResponseDto = memberService.createMember(requestDto);
         //응답 형식 적용
         ApiResponse response = new ApiResponse("created", 201, memberCreateResponseDto);
         ResponseEntity<ApiResponse> response2 = new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -42,11 +42,11 @@ public class MemberController {
      * @param memberId
      */
     @GetMapping("/{memberId}")
-    public ApiResponseGet getMemberDetailApi(@PathVariable("memberId") Long memberId) {
+    public ApiResponse getMemberDetailApi(@PathVariable("memberId") Long memberId) {
         log.info("memberId: {}", memberId);
         MemberGetOneResponseDto responseDto = memberService.getMemberDetail(memberId);
-        ApiResponseGet responseGet = new ApiResponseGet("success",200,responseDto);
-        return responseGet;
+        ApiResponse response = new ApiResponse("success",200, responseDto);
+        return response;
     }
 
 

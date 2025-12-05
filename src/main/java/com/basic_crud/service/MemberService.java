@@ -1,7 +1,7 @@
 package com.basic_crud.service;
 
 import com.basic_crud.dto.MemberCreateRequestDto;
-import com.basic_crud.dto.MemberCreateResponseDto;
+import com.basic_crud.dto.T;
 import com.basic_crud.dto.MemberGetOneResponseDto;
 import com.basic_crud.entity.Member;
 import com.basic_crud.repository.MemberRepository;
@@ -28,7 +28,7 @@ public class MemberService {
      * @return
      */
     @Transactional
-    public MemberCreateResponseDto createMember(MemberCreateRequestDto requestDto) {
+    public T createMember(MemberCreateRequestDto requestDto) {
         //데이터준비
         String name = requestDto.getName();
         //멤버생성
@@ -38,7 +38,7 @@ public class MemberService {
         //반환데이터준비
         Long foundId = savedMember.getId();
         //반환Dto (도메인+기능+Dto)
-        MemberCreateResponseDto responseDto = new MemberCreateResponseDto(foundId);
+        T responseDto = new T(foundId);
         return responseDto;
     }
 
