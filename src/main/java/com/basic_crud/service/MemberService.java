@@ -2,6 +2,7 @@ package com.basic_crud.service;
 
 import com.basic_crud.dto.MemberCreateRequestDto;
 import com.basic_crud.dto.MemberCreateResponseDto;
+import com.basic_crud.dto.MemberGetAllResponseDto;
 import com.basic_crud.dto.MemberGetOneResponseDto;
 import com.basic_crud.entity.Member;
 import com.basic_crud.repository.MemberRepository;
@@ -9,6 +10,9 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -68,4 +72,31 @@ public class MemberService {
         return responseDto;
     }
 
+    @Transactional
+    public MemberGetAllResponseDto getMembers() {
+        log.info("연결완료");
+        //데이터 준비
+        List<Member> members = memberRepository.findAllByIsDeletedFalse();
+        int count = members.size();
+
+        //내부 dto 만들기
+        List<MemberGetOneResponseDto> dtos = new ArrayList<>();
+        for (Member member : members) {
+            log.info("memberId: {}", member.getId());
+
+            MemberGetOneResponseDto dto = new MemberGetOneResponseDto(
+                    member.getId(),
+                    member.getName()
+            );
+            dtos.add(dto);
+        }
+
+        //외부 dto 만들기
+        MemberGetAllResponseDto memberGetAllResponseDto = new MemberGetAllResponseDto(count, dtos);
+return memberGetAllResponseDto;
+    }
 }
+
+
+
+
