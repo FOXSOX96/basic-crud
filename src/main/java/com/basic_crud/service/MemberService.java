@@ -72,6 +72,11 @@ public class MemberService {
         return responseDto;
     }
 
+    /**
+     * 회원 목록 조회
+     *
+     * @return
+     */
     @Transactional
     public MemberGetAllResponseDto getMembers() {
         log.info("연결완료");
@@ -80,11 +85,11 @@ public class MemberService {
         int count = members.size();
 
         //내부 dto 만들기
-        List<MemberGetOneResponseDto> dtos = new ArrayList<>();
+        List<MemberGetAllResponseDto.MemberDto> dtos = new ArrayList<>();
         for (Member member : members) {
             log.info("memberId: {}", member.getId());
 
-            MemberGetOneResponseDto dto = new MemberGetOneResponseDto(
+            MemberGetAllResponseDto.MemberDto dto = new MemberGetAllResponseDto.MemberDto(
                     member.getId(),
                     member.getName()
             );
@@ -93,7 +98,7 @@ public class MemberService {
 
         //외부 dto 만들기
         MemberGetAllResponseDto memberGetAllResponseDto = new MemberGetAllResponseDto(count, dtos);
-return memberGetAllResponseDto;
+        return memberGetAllResponseDto;
     }
 }
 
