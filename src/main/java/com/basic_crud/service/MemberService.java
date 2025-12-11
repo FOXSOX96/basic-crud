@@ -1,9 +1,6 @@
 package com.basic_crud.service;
 
-import com.basic_crud.dto.MemberCreateRequestDto;
-import com.basic_crud.dto.MemberCreateResponseDto;
-import com.basic_crud.dto.MemberGetAllResponseDto;
-import com.basic_crud.dto.MemberGetOneResponseDto;
+import com.basic_crud.dto.*;
 import com.basic_crud.entity.Member;
 import com.basic_crud.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -100,7 +97,28 @@ public class MemberService {
         MemberGetAllResponseDto memberGetAllResponseDto = new MemberGetAllResponseDto(count, dtos);
         return memberGetAllResponseDto;
     }
+
+    /**
+     * 회원 수정
+     * @param memberId
+     * @param requsetDto
+     */
+    @Transactional
+    public MemberUpdateResponseDto updateMember(Long memberId, MemberUpdateRequsetDto requsetDto) {
+        Member foundMember = memberRepository.findByIdAndIsDeletedFalse(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("없는 멤버입니다.")
+                );
+        log.info("서비스 -memberId: {}, 수정 전 name: {}", foundMember.getId(), foundMember.getName());
+
+        Member updateMember = foundMember.updateMember(requsetDto.getName());
+
+        log.info("서비스 -memberId: {}, 수정 후 name: {}", updateMember.getId(), updateMember.getName());
+
+        return new MemberUpdateResponseDto(updateMember.getId());
+    }
 }
+
+
 
 
 

@@ -32,6 +32,11 @@ public class Member {
         this.name = name;
     }
 
+    public Member updateMember(String name) {
+        this.name = name;
+        return this;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

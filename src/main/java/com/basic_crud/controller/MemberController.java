@@ -46,33 +46,34 @@ public class MemberController {
         log.info("memberId: {}", memberId);
         MemberGetOneResponseDto responseDto = memberService.getMemberDetail(memberId);
         //응답 형식 적용
-        ApiResponse<MemberGetOneResponseDto> apiResponse = new ApiResponse<>("success",200, responseDto);
+        ApiResponse<MemberGetOneResponseDto> apiResponse = new ApiResponse<>("success", 200, responseDto);
         ResponseEntity<ApiResponse<MemberGetOneResponseDto>> response2 = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response2;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @GetMapping
     public ResponseEntity<ApiResponse<MemberGetAllResponseDto>> getMembersApi() {
         log.info("연결완료");
         MemberGetAllResponseDto responseDto = memberService.getMembers();
         //응답 형식적용
-        ApiResponse<MemberGetAllResponseDto> apiResponse = new ApiResponse<>("success",200,responseDto);
+        ApiResponse<MemberGetAllResponseDto> apiResponse = new ApiResponse<>("success", 200, responseDto);
         ResponseEntity<ApiResponse<MemberGetAllResponseDto>> response2 = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response2;
     }
 
-
+    /**
+     * 회원 수정
+     *
+     * @param memberId
+     * @param requsetDto
+     */
+    @PatchMapping("/{memberId}")
+    public ResponseEntity<ApiResponse<MemberUpdateResponseDto>> updateMemberApi(@PathVariable("memberId") Long memberId, @RequestBody MemberUpdateRequsetDto requsetDto) {
+        log.info("컨트롤러 - memberId: {}, 수정하고 싶은 name: {}", memberId, requsetDto.getName());
+        MemberUpdateResponseDto responseDto = memberService.updateMember(memberId, requsetDto);
+        //응답 형식적용
+        ApiResponse<MemberUpdateResponseDto> apiResponse = new ApiResponse<>("updated", 200, responseDto);
+        ResponseEntity<ApiResponse<MemberUpdateResponseDto>> response2 = new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return response2;
+    }
 }
